@@ -37,6 +37,8 @@ class notNumberException(Exception):
     pass
 class notProcessException(Exception):
     pass
+class langNotFoundException(Exception):
+    pass
 def addEasterEgg(fnum:str, proc:str, snum:str, out:str):
     global lang, translation
     if not proc in processes:
@@ -46,11 +48,12 @@ def addEasterEgg(fnum:str, proc:str, snum:str, out:str):
     if not isInt(snum):
         raise notNumberException(translation[lang]["n_val_snum"])
     easters.update({fnum + ":" + proc + ":" + snum:out})
-
 def runCalc(lng:str="en"):
     global lang, langs, translation
     if lng in langs:
         lang = lng
+    else:
+        raise langNotFoundException
     run = True
     a = input(translation[lang]["i_fnum"])
     if not isInt(a):
